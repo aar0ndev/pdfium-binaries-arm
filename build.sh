@@ -79,6 +79,9 @@ cp "$PDFium_ARGS" "$PDFium_BUILD_DIR/args.gn"
 [ "$OS" == "darwin" ] && echo 'mac_deployment_target = "10.10.0"' >> "$PDFium_BUILD_DIR/args.gn"
 [ "$TARGET_CPU" != "" ] && echo "target_cpu=\"$TARGET_CPU\"" >> "$PDFium_BUILD_DIR/args.gn"
 
+# Setup sysroot
+[ "$TARGET_CPU" == "arm" ] && python build/linux/sysroot_scripts/install-sysroot.py --arch=arm
+
 # Generate Ninja files
 gn gen "$PDFium_BUILD_DIR"
 
